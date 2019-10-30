@@ -13,28 +13,29 @@ import org.robolectric.annotation.Config
 import java.util.*
 
 @RunWith(TestRunner::class)
-@Config(constants = BuildConfig::class, sdk = intArrayOf(21))
+@Config(sdk = [21])
 class DateTimeRangePickerViewModelTest {
   val timeFormatter: TimeFormatter = mock()
   val viewModel: DateTimeRangePickerViewModel by lazy {
     DateTimeRangePickerViewModel(timeFormatter)
   }
 
-  @Test fun shouldExtractTimeZoneFromArgs() {
+  @Test
+  fun shouldExtractTimeZoneFromArgs() {
     val args = Bundle()
-    args.putString("timeZone", "CET")
+    args.putString("timeZone", "Asia/Jakarta")
     viewModel.handleArgs(args)
-    assertThat(viewModel.timeZone).isEqualTo(TimeZone.getTimeZone("CET"))
+    assertThat(viewModel.timeZone).isEqualTo(TimeZone.getTimeZone("Asia/Jakarta"))
   }
 
   @Test fun shouldExtractStartAndEndDateTimesFromArgs() {
     whenever(timeFormatter.printTime(any())).thenReturn("")
 
-    val startDateTime = DateTime(DateTimeZone.forID("CET"))
+    val startDateTime = DateTime(DateTimeZone.forID("Asia/Jakarta"))
     val endDateTime = startDateTime.plusDays(2)
 
     val args = Bundle()
-    args.putString("timeZone", "CET")
+    args.putString("timeZone", "Asia/Jakarta")
     args.putLong("startTimeInMillis", startDateTime.millis)
     args.putLong("endTimeInMillis", endDateTime.millis)
 
@@ -50,17 +51,17 @@ class DateTimeRangePickerViewModelTest {
     val startDateTime = DateTime.now()
     val endDateTime = startDateTime.plusDays(1)
 
-    viewModel.timeZone = TimeZone.getTimeZone("CET")
+    viewModel.timeZone = TimeZone.getTimeZone("Asia/Jakarta")
     viewModel.startDateTime.onNext(startDateTime)
     viewModel.endDateTime.onNext(endDateTime)
 
     val resultIntent = viewModel.createResultIntent()
-    assertThat(resultIntent.getStringExtra("timeZone")).isEqualTo("CET")
+    assertThat(resultIntent.getStringExtra("timeZone")).isEqualTo("Asia/Jakarta")
   }
 
   @Test fun shouldPickOneDateForBothStartAndEndDateTimes() {
-    viewModel.timeZone = TimeZone.getTimeZone("CET")
-    val selectedDateTime = DateTime.now(DateTimeZone.forID("CET"));
+    viewModel.timeZone = TimeZone.getTimeZone("Asia/Jakarta")
+    val selectedDateTime = DateTime.now(DateTimeZone.forID("Asia/Jakarta"));
 
     viewModel.updateSelectedDates(listOf(selectedDateTime.toDate()))
     assertThat(viewModel.startDateTime.value).isEqualTo(selectedDateTime)
@@ -68,20 +69,20 @@ class DateTimeRangePickerViewModelTest {
   }
 
   @Test fun shouldKeepTimesAfterPickingSameDateForBothStartAndEnd() {
-    viewModel.timeZone = TimeZone.getTimeZone("CET")
+    viewModel.timeZone = TimeZone.getTimeZone("Asia/Jakarta")
 
-    val startDateTime = DateTime(DateTimeZone.forID("CET"))
+    val startDateTime = DateTime(DateTimeZone.forID("Asia/Jakarta"))
         .withYear(2014).withMonthOfYear(12).withDayOfMonth(22)
         .withHourOfDay(10).withMinuteOfHour(30).withSecondOfMinute(20)
     viewModel.startDateTime.onNext(startDateTime)
 
-    val endDateTime = DateTime(DateTimeZone.forID("CET"))
+    val endDateTime = DateTime(DateTimeZone.forID("Asia/Jakarta"))
         .withYear(2014).withMonthOfYear(12).withDayOfMonth(23)
         .withHourOfDay(12).withMinuteOfHour(30).withSecondOfMinute(30)
     viewModel.endDateTime.onNext(endDateTime)
 
     viewModel.updateSelectedDates(listOf(
-        DateTime(DateTimeZone.forID("CET"))
+        DateTime(DateTimeZone.forID("Asia/Jakarta"))
             .withYear(2014).withMonthOfYear(12).withDayOfMonth(25)
             .withHourOfDay(4).withMinuteOfHour(0).withSecondOfMinute(10)
             .toDate()
@@ -93,24 +94,24 @@ class DateTimeRangePickerViewModelTest {
   }
 
   @Test fun shouldKeepTimesAfterPickingDifferentDatesForBothStartAndEnd() {
-    viewModel.timeZone = TimeZone.getTimeZone("CET")
+    viewModel.timeZone = TimeZone.getTimeZone("Asia/Jakarta")
 
-    val startDateTime = DateTime(DateTimeZone.forID("CET"))
+    val startDateTime = DateTime(DateTimeZone.forID("Asia/Jakarta"))
         .withYear(2014).withMonthOfYear(12).withDayOfMonth(22)
         .withHourOfDay(10).withMinuteOfHour(30).withSecondOfMinute(20)
     viewModel.startDateTime.onNext(startDateTime)
 
-    val endDateTime = DateTime(DateTimeZone.forID("CET"))
+    val endDateTime = DateTime(DateTimeZone.forID("Asia/Jakarta"))
         .withYear(2014).withMonthOfYear(12).withDayOfMonth(23)
         .withHourOfDay(12).withMinuteOfHour(30).withSecondOfMinute(30)
     viewModel.endDateTime.onNext(endDateTime)
 
     viewModel.updateSelectedDates(listOf(
-        DateTime(DateTimeZone.forID("CET"))
+        DateTime(DateTimeZone.forID("Asia/Jakarta"))
             .withYear(2014).withMonthOfYear(12).withDayOfMonth(25)
             .withHourOfDay(4).withMinuteOfHour(0).withSecondOfMinute(10)
             .toDate(),
-        DateTime(DateTimeZone.forID("CET"))
+        DateTime(DateTimeZone.forID("Asia/Jakarta"))
             .withYear(2014).withMonthOfYear(12).withDayOfMonth(26)
             .withHourOfDay(5).withMinuteOfHour(30).withSecondOfMinute(40)
             .toDate()

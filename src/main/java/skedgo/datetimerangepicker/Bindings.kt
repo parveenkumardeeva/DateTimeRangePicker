@@ -1,8 +1,8 @@
 package skedgo.datetimerangepicker
 
-import android.databinding.BindingAdapter
-import android.support.v7.widget.Toolbar
 import android.view.View
+import androidx.appcompat.widget.Toolbar
+import androidx.databinding.BindingAdapter
 
 object Bindings {
   @BindingAdapter("isDone") @JvmStatic

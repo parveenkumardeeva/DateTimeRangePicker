@@ -3,24 +3,24 @@ package skedgo.datetimerangepicker
 import android.app.Activity
 import android.app.TimePickerDialog
 import android.content.Context
-import android.content.Intent
-import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.text.format.DateFormat
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.squareup.timessquare.CalendarPickerView
 import org.joda.time.DateTime
 import skedgo.datetimerangepicker.databinding.DateTimeRangePickerBinding
 import java.util.*
+import android.content.Intent as Intent1
 
 class DateTimeRangePickerActivity : AppCompatActivity() {
   companion object {
     fun newIntent(
-        context: Context?,
-        timeZone: TimeZone?,
-        startTimeInMillis: Long?,
-        endTimeInMillis: Long?): Intent {
-      val intent = Intent(context!!, DateTimeRangePickerActivity::class.java)
+            context: Context?,
+            timeZone: TimeZone?,
+            startTimeInMillis: Long?,
+            endTimeInMillis: Long?): Intent1 {
+      val intent = Intent1(context!!, DateTimeRangePickerActivity::class.java)
       startTimeInMillis?.let { intent.putExtra(DateTimeRangePickerViewModel.KEY_START_TIME_IN_MILLIS, it) }
       endTimeInMillis?.let { intent.putExtra(DateTimeRangePickerViewModel.KEY_END_TIME_IN_MILLIS, it) }
       intent.putExtra(DateTimeRangePickerViewModel.KEY_TIME_ZONE, timeZone!!.id)
@@ -42,7 +42,7 @@ class DateTimeRangePickerActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
 
     viewModel.handleArgs(intent.extras)
-    binding.setViewModel(viewModel)
+    binding.viewModel = viewModel
 
     val toolbar = binding.toolbar
     toolbar.inflateMenu(R.menu.date_time_range_picker)

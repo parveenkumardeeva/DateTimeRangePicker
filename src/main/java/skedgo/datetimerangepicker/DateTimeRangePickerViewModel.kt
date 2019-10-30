@@ -2,9 +2,9 @@ package skedgo.datetimerangepicker
 
 import android.app.TimePickerDialog
 import android.content.Intent
-import android.databinding.ObservableBoolean
-import android.databinding.ObservableField
 import android.os.Bundle
+import androidx.databinding.ObservableBoolean
+import androidx.databinding.ObservableField
 import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
 import org.joda.time.format.DateTimeFormat
@@ -48,16 +48,15 @@ class DateTimeRangePickerViewModel(private val timeFormatter: TimeFormatter) {
         endDateTime.onNext(newValue)
       }
     }
-    startDateTime.subscribe({
+    startDateTime.subscribe {
       onDateTimeEmitted(it, startDateText, startTimeText, hasStartDate)
-    })
-    endDateTime.subscribe({
+    }
+    endDateTime.subscribe {
       onDateTimeEmitted(it, endDateText, endTimeText, hasEndDate)
-    })
-    Observable.combineLatest(startDateTime, endDateTime, {
-      x, y ->
+    }
+    Observable.combineLatest(startDateTime, endDateTime) { x, y ->
       x != null && y != null
-    }).subscribe({ isCompletable.set(it) })
+    }.subscribe { isCompletable.set(it) }
   }
 
   fun onDateTimeEmitted(
