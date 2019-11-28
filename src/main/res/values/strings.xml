@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="dateTimeRangePickerDoneText">Done</string>
-  <string name="dateTimeRangePickerStartText">Mulai</string>
-  <string name="dateTimeRangePickerEndText">Berakhir</string>
+    <string name="dateTimeRangePickerDoneText">Done</string>
+    <string name="dateTimeRangePickerStartText">From</string>
+    <string name="dateTimeRangePickerEndText">To</string>
 </resources>
