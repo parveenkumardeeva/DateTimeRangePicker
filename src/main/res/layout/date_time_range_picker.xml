@@ -79,6 +79,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="16dp"
                         android:text="@{viewModel.startDateText}"
+                        android:textColor="@color/from_date"
                         tools:text="14 Jan 2017" />
 
                     <TextView
@@ -88,6 +89,7 @@
                         android:drawableRight="@drawable/arrow_drop_down"
                         android:drawablePadding="8dp"
                         android:text="@{viewModel.startTimeText}"
+                        android:textColor="@color/from_time"
                         tools:text="0:00" />
                 </LinearLayout>
 
@@ -139,6 +141,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="16dp"
                         android:text="@{viewModel.endDateText}"
+                        android:textColor="@color/to_date"
                         tools:text="14 Jan 2017" />
 
                     <TextView
@@ -148,6 +151,7 @@
                         android:drawableRight="@drawable/arrow_drop_down"
                         android:drawablePadding="8dp"
                         android:text="@{viewModel.endTimeText}"
+                        android:textColor="@color/to_time"
                         tools:text="0:00" />
                 </LinearLayout>
             </LinearLayout>
